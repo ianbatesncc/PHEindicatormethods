@@ -67,6 +67,7 @@ phe_isr <- function(data, x, n, x_ref, n_ref, refpoptype = "vector",
         stop("function phe_isr requires at least 5 arguments: data, x, n, x_ref and n_ref")
     }
 
+    names_data <- names(data)
 
     # check same number of rows per group
     if (n_distinct(select(ungroup(count(data)),n)) != 1) {
@@ -113,6 +114,18 @@ phe_isr <- function(data, x, n, x_ref, n_ref, refpoptype = "vector",
     } else if (!(type %in% c("value", "lower", "upper", "standard", "full"))) {
         stop("type must be one of value, lower, upper, standard or full")
     }
+
+
+    # check field name collisions
+    validate_fields(
+      names_data
+      , c(as_name(x), as_name(n))
+      , c(
+        "xrefpop_calc", "nrefpop_calc"
+        , "exp_x", "observed", "expected", "ref_rate"
+        , "value", "lowercl", "uppercl", "confidence", "statistic", "method"
+      )
+    )
 
 
     # scale confidence level

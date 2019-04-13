@@ -70,6 +70,8 @@ phe_dsr <- function(data, x, n, stdpop = esp2013, stdpoptype = "vector",
         stop("function phe_dsr requires at least 3 arguments: data, x, n")
     }
 
+    names_data <- names(data)
+
     # check same number of rows per group
     if (n_distinct(select(ungroup(count(data)),n)) != 1) {
         stop("data must contain the same number of rows for each group")
@@ -77,13 +79,13 @@ phe_dsr <- function(data, x, n, stdpop = esp2013, stdpoptype = "vector",
 
     # check stdpop is valid and append to data
     if (!(stdpoptype %in% c("vector","field"))) {
-        stop("valid values for stdpoptype are vector and field")
+      stop("valid values for stdpoptype are vector and field")
     } else if (stdpoptype == "vector") {
-        if (pull(slice(select(ungroup(count(data)),n),1)) != length(stdpop)) {
-            stop("stdpop length must equal number of rows in each group within data")
-    }
+      if (pull(slice(select(ungroup(count(data)),n),1)) != length(stdpop)) {
+        stop("stdpop length must equal number of rows in each group within data")
+      }
 
-    data <- mutate(data,stdpop_calc = stdpop)
+      data <- mutate(data,stdpop_calc = stdpop)
 
     } else if (stdpoptype == "field") {
 
@@ -111,6 +113,18 @@ phe_dsr <- function(data, x, n, stdpop = esp2013, stdpoptype = "vector",
     } else if (!(type %in% c("value", "lower", "upper", "standard", "full"))) {
         stop("type must be one of value, lower, upper, standard or full")
     }
+
+
+    # check field name collisions
+    validate_fields(
+      names_data
+      , c(as_name(x), as_name(n))
+      , c(
+        "stdpop_calc"
+        , "wt_rate", "sq_rate", "total_count", "total_pop", "vardsr"
+        , "value", "lowercl", "uppercl", "confidence", "statistic", "method"
+      )
+    )
 
 
     # scale confidence level

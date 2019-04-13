@@ -52,6 +52,18 @@ phe_mean <- function(data, x, type = "full", confidence=0.95) {
         stop("type must be one of value, lower, upper, standard or full")
     }
 
+
+    # check field name collisions
+    validate_fields(
+      names(data)
+      , c(as_name(x))
+      , c(
+        "value_sum", "value_count", "stdev"
+        , "value", "lowercl", "uppercl", "confidence", "statistic", "method"
+      )
+    )
+
+
     # scale confidence level
     if (confidence >= 90) {
         confidence <- confidence/100

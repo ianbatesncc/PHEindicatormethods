@@ -82,6 +82,14 @@ phe_proportion <- function(data, x, n, type="full", confidence=0.95, multiplier=
     }
 
 
+    # check field name collisions
+    validate_fields(
+      names(data)
+      , c(as_name(x), as_name(n))
+      , c("value", "lowercl", "uppercl", "confidence", "statistic", "method")
+    )
+
+
     # scale confidence level
     if (confidence >= 90) {
         confidence <- confidence/100
