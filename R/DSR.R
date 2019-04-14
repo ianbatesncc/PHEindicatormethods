@@ -89,13 +89,13 @@ phe_dsr <- function(data, x, n, stdpop = esp2013, stdpoptype = "vector",
 
     # check stdpop is valid and append to data
     if (!(stdpoptype %in% c("vector","field"))) {
-      stop("valid values for stdpoptype are vector and field")
+        stop("valid values for stdpoptype are vector and field")
     } else if (stdpoptype == "vector") {
-      if (pull(slice(select(ungroup(count(data)),n),1)) != length(stdpop)) {
-        stop("stdpop length must equal number of rows in each group within data")
-      }
+        if (pull(slice(select(ungroup(count(data)),n),1)) != length(stdpop)) {
+            stop("stdpop length must equal number of rows in each group within data")
+    }
 
-      data <- mutate(data,stdpop_calc = stdpop)
+    data <- mutate(data,stdpop_calc = stdpop)
 
     } else if (stdpoptype == "field") {
 
