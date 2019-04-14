@@ -78,3 +78,11 @@ test_that("rates - errors are generated when invalid arguments are used",{
                "type must be one of value, lower, upper, standard or full", info="error invalid type")
 
 })
+
+# test warnings
+test_that("rates - warnings are generated when field collisions between data and functions", {
+  expect_warning(phe_rate(mutate(data.frame(area  =c("Area1","Area2","Area3"),
+                                            obs   =c(65,80,30),
+                                            pop   =c(100,100,100)), value = obs / pop), obs, pop),
+                 "Field name collision between data object and function implementation", info = "warning field name collision")
+})

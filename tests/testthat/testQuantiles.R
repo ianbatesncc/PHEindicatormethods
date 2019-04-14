@@ -70,3 +70,9 @@ test_that("quantiles - errors are generated when invalid arguments are used",{
                             invert = Pol, inverttype = "field"),
                "invert is not a field name from data",info="error invert not valid field name")
 })
+
+# test warnings
+test_that("quantiles - warnings are generated when field collisions between data and functions", {
+  expect_warning(phe_quantile(mutate(df1, quantile = Value), Value),
+                 "Field name collision between data object and function implementation", info = "warning field name collision")
+})

@@ -244,6 +244,11 @@ test_that("LE - warnings are generated when invalid arguments are used",{
                all = FALSE)
 })
 
+test_that("LE - warnings are generated when field collisions between data and functions", {
+  expect_warning(phe_life_expectancy(mutate(df1, value = pops / deaths * 1e3), deaths, pops, startage),
+                 "Field name collision between data object and function implementation", info = "warning field name collision")
+})
+
 
 # test error handling
 

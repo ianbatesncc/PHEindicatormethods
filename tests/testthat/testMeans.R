@@ -37,3 +37,9 @@ test_that("means - errors are generated when invalid arguments are used",{
 
 
 })
+
+# test warnings
+test_that("means - warnings are generated when field collisions between data and functions", {
+  expect_warning(phe_mean(mutate(test_Mean, value = values), values),
+                 "Field name collision between data object and function implementation", info = "warning field name collision")
+})

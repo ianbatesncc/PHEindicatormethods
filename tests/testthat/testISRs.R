@@ -113,4 +113,9 @@ test_that("isrs - errors are generated when invalid arguments are used",{
                "n_ref is not a field name from data",info="error n_ref not a field name")
 })
 
+# test warnings
+test_that("isrs - warnings are generated when field collisions between data and functions", {
+  expect_warning(phe_isr(mutate(test_ISR_ownref, value = count / pop), count, pop, refcount, refpop, refpoptype = "field"),
+                 "Field name collision between data object and function implementation", info = "warning field name collision")
+})
 

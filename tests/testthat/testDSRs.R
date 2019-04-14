@@ -91,3 +91,8 @@ test_that("dsrs - errors are generated when invalid arguments are used",{
 })
 
 
+# test warnings
+test_that("dsrs - warnings are generated when field collisions between data and functions", {
+  expect_warning(phe_dsr(mutate(test_multiarea, value = count / pop), count, pop),
+                 "Field name collision between data object and function implementation", info = "warning field name collision")
+})
