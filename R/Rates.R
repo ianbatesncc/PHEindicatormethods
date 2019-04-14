@@ -61,7 +61,6 @@ phe_rate <- function(data,x, n, type = "full", confidence = 0.95, multiplier = 1
     check_field_collision(
       "phe_rate"
       , names(data)
-      , c(deparse(substitute(x)), deparse(substitute(n)))
       , c("value", "lowercl", "uppercl", "confidence", "statistic", "method")
       #, quiet = FALSE
     )

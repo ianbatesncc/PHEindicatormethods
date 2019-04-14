@@ -71,7 +71,6 @@ phe_isr <- function(data, x, n, x_ref, n_ref, refpoptype = "vector",
     check_field_collision(
       "phe_isr"
       , names(data)
-      , c(deparse(substitute(x)), deparse(substitute(n)))
       , c(
         "xrefpop_calc", "nrefpop_calc"
         , "exp_x", "observed", "expected", "ref_rate"

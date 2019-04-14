@@ -75,7 +75,6 @@ phe_quantile <- function(data, values, highergeog = NULL, nquantiles=10L,
     check_field_collision(
       "phe_quantile"
       , names(data)
-      , deparse(substitute(values))
       , c(
         "invert_calc"
         , "naflag", "adj_value", "rank", "quantile", "nquantiles"

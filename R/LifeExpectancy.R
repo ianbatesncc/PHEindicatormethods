@@ -141,11 +141,6 @@ phe_life_expectancy <- function(data, deaths, population, startage,
     "phe_life_expectancy"
     , names(data)
     , c(
-      deparse(substitute(deaths))
-      , deparse(substitute(population))
-      , deparse(substitute(startage))
-    )
-    , c(
       "startage_2b_removed"
       , "id_2b_removed", "ni_2b_removed", "ai_2b_removed", "M_2b_removed"
       , "qi_2b_removed", "p_2b_removed", "l_2b_removed", "p1_2b_removed"

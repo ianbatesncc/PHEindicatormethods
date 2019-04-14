@@ -66,7 +66,6 @@ phe_proportion <- function(data, x, n, type="full", confidence=0.95, multiplier=
     check_field_collision(
       "phe_proportion"
       , names(data)
-      , c(deparse(substitute(x)), deparse(substitute(n)))
       , c("value", "lowercl", "uppercl", "confidence", "statistic", "method")
     )
 

@@ -46,7 +46,6 @@ phe_mean <- function(data, x, type = "full", confidence=0.95) {
     check_field_collision(
       "phe_mean"
       , names(data)
-      , deparse(substitute(x))
       , c(
         "value_sum", "value_count", "stdev"
         , "value", "lowercl", "uppercl", "confidence", "statistic", "method"

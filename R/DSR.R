@@ -74,7 +74,6 @@ phe_dsr <- function(data, x, n, stdpop = esp2013, stdpoptype = "vector",
     check_field_collision(
       "phe_dsr"
       , names(data)
-      , c(deparse(substitute(x)), deparse(substitute(n)))
       , c(
         "stdpop_calc"
         , "wt_rate", "sq_rate", "total_count", "total_pop", "vardsr"

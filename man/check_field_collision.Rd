@@ -5,14 +5,12 @@
 \title{check_field_collision}
 \usage{
 check_field_collision(fname = "phe", data_names = NULL,
-  arg_names = NULL, function_names = NULL)
+  function_names = NULL)
 }
 \arguments{
 \item{fname}{(character) name of function to present in warning message}
 
 \item{data_names}{(character vector) vector of dataset names}
-
-\item{arg_names}{(character vector) vector of argument names}
 
 \item{function_names}{(character vector) vector of fields overwritten by
 function}
@@ -25,17 +23,16 @@ Collisions may occur with arguments and fixed function internal names.
 Report on these as warnings.
 }
 \details{
-Three sets of names are of interest:
+Two sets of names are of interest:
+
 \itemize{
   \item names of fields already in the data frame (data_names)
-  \item names of fields in the data frame to use in the function (arg_names)
   \item names of fields that will be mutated by the function (function_names)
 }
 
- Warnings are issued for these two cases:
+ Warnings are issued for this case:
 
 \itemize{
   \item function_names overlap with data_names
-  \item arg_names overlap with function_names
 }
 }

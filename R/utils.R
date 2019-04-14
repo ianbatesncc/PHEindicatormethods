@@ -475,23 +475,22 @@ SimulationFunc <- function(data,
 #'
 #' @param fname (character) name of function to present in warning message
 #' @param data_names (character vector) vector of dataset names
-#' @param arg_names (character vector) vector of argument names
 #' @param function_names (character vector) vector of fields overwritten by
 #'   function
 #'
 #' @details
-#' Three sets of names are of interest:
+#'
+#' Two sets of names are of interest:
+#'
 #' \itemize{
 #'   \item names of fields already in the data frame (data_names)
-#'   \item names of fields in the data frame to use in the function (arg_names)
 #'   \item names of fields that will be mutated by the function (function_names)
 #' }
 #'
-#'  Warnings are issued for these two cases:
+#'  Warnings are issued for this case:
 #'
 #' \itemize{
 #'   \item function_names overlap with data_names
-#'   \item arg_names overlap with function_names
 #' }
 #'
 #' @return (bool) true if no overlap.  False if any overlap.
@@ -499,32 +498,26 @@ SimulationFunc <- function(data,
 check_field_collision <- function(
   fname = "phe"
   , data_names = NULL
-  , arg_names = NULL
   , function_names = NULL
 ) {
 
-  retval <- 0L
-  s_warning <- NULL
-
-  msg = paste0(
-    fname
-    , ": Field name collision between data object and function implementation
-    This may result in overwritten/dropped fields or other unexpected behaviour.
-    Consider renaming or removing these fields to avoid the collision:
-      "
-  )
+  retval <- TRUE
 
   dup_names <- intersect(function_names, data_names)
 
   if (length(dup_names) > 0) {
-    warning(
-      paste0(msg, paste(dup_names, collapse = ", "))
-      , call. = FALSE
-      , immediate. = TRUE # to help understand any errors in parent function
+    msg = paste0(
+      fname, ": Field name collision between data object and function implementation
+    This may result in overwritten/dropped fields or other unexpected behaviour.
+    Consider renaming or removing these fields to avoid the collision:
+      ", paste(dup_names, collapse = ", ")
     )
 
-    retval <- retval + 1
+    # immediate. == TRUE to help understand any errors in parent function
+    warning(msg, call. = FALSE, immediate. = TRUE)
+
+    retval <- FALSE
   }
 
-  invisible(retval > 0)
+  invisible(retval)
 }
