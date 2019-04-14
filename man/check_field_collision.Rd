@@ -5,7 +5,7 @@
 \title{check_field_collision}
 \usage{
 check_field_collision(fname = "phe", data_names = NULL,
-  arg_names = NULL, function_names = NULL, quiet = FALSE)
+  arg_names = NULL, function_names = NULL)
 }
 \arguments{
 \item{fname}{(character) name of function to present in warning message}
@@ -16,8 +16,6 @@ check_field_collision(fname = "phe", data_names = NULL,
 
 \item{function_names}{(character vector) vector of fields overwritten by
 function}
-
-\item{quiet}{(bool) TRUE to show function arguments (for debugging).}
 }
 \value{
 (bool) true if no overlap.  False if any overlap.

@@ -478,7 +478,6 @@ SimulationFunc <- function(data,
 #' @param arg_names (character vector) vector of argument names
 #' @param function_names (character vector) vector of fields overwritten by
 #'   function
-#' @param quiet (bool) TRUE to show function arguments (for debugging).
 #'
 #' @details
 #' Three sets of names are of interest:
@@ -502,17 +501,10 @@ check_field_collision <- function(
   , data_names = NULL
   , arg_names = NULL
   , function_names = NULL
-  , quiet = FALSE
 ) {
 
   retval <- 0L
   s_warning <- NULL
-
-  if (quiet == TRUE) {
-    cat("INFO: data_names:", paste(data_names, collapse = ", "), "\n")
-    cat("INFO: arg_names:", paste(arg_names, collapse = ", "), "\n")
-    cat("INFO: function_names:", paste(function_names, collapse = ", "), "\n")
-  }
 
   msg = paste0(
     fname
