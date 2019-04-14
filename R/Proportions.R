@@ -63,6 +63,15 @@ phe_proportion <- function(data, x, n, type="full", confidence=0.95, multiplier=
     }
 
 
+    # check field name collisions
+    check_field_collision(
+      "phe_proportion"
+      , names(data)
+      , c(deparse(substitute(x)), deparse(substitute(n)))
+      , c("value", "lowercl", "uppercl", "confidence", "statistic", "method")
+    )
+
+
     # apply quotes
     x <- enquo(x)
     n <- enquo(n)
@@ -80,14 +89,6 @@ phe_proportion <- function(data, x, n, type="full", confidence=0.95, multiplier=
     } else if (!(type %in% c("value", "lower", "upper", "standard", "full"))) {
         stop("type must be one of value, lower, upper, standard or full")
     }
-
-
-    # check field name collisions
-    validate_fields(
-      names(data)
-      , c(as_name(x), as_name(n))
-      , c("value", "lowercl", "uppercl", "confidence", "statistic", "method")
-    )
 
 
     # scale confidence level

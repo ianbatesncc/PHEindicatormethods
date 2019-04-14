@@ -42,6 +42,18 @@ phe_mean <- function(data, x, type = "full", confidence=0.95) {
         stop("function phe_mean requires at least 2 arguments: data, x")
     }
 
+    # check field name collisions
+    check_field_collision(
+      "phe_mean"
+      , names(data)
+      , deparse(substitute(x))
+      , c(
+        "value_sum", "value_count", "stdev"
+        , "value", "lowercl", "uppercl", "confidence", "statistic", "method"
+      )
+    )
+
+
     # apply quotes
     x <- enquo(x)
 
@@ -51,17 +63,6 @@ phe_mean <- function(data, x, type = "full", confidence=0.95) {
     } else if (!(type %in% c("value", "lower", "upper", "standard", "full"))) {
         stop("type must be one of value, lower, upper, standard or full")
     }
-
-
-    # check field name collisions
-    validate_fields(
-      names(data)
-      , c(as_name(x))
-      , c(
-        "value_sum", "value_count", "stdev"
-        , "value", "lowercl", "uppercl", "confidence", "statistic", "method"
-      )
-    )
 
 
     # scale confidence level

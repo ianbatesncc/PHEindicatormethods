@@ -71,7 +71,19 @@ phe_quantile <- function(data, values, highergeog = NULL, nquantiles=10L,
         stop("function phe_quantile requires at least 2 arguments: data and values")
     }
 
-    names_data <- names(data)
+
+    # check field name collisions
+    check_field_collision(
+      "phe_quantile"
+      , names(data)
+      , deparse(substitute(values))
+      , c(
+        "invert_calc"
+        , "naflag", "adj_value", "rank", "quantile", "nquantiles"
+        , "highergeog_column", "qinverted"
+      )
+    )
+
 
     # check invert is valid and append to data
     if (!(inverttype %in% c("logical","field"))) {
@@ -117,18 +129,6 @@ phe_quantile <- function(data, values, highergeog = NULL, nquantiles=10L,
                   group_by(!!highergeog_q, add=TRUE)
         }
     }
-
-
-    # check field name collisions
-    validate_fields(
-      names(data)
-      , c(values)
-      , c(
-        "invert_calc"
-        , "naflag", "adj_value", "rank", "quantile", "nquantiles"
-        , "highergeog_column", "qinverted"
-      )
-    )
 
 
     # assign quantiles

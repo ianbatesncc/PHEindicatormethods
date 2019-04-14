@@ -136,7 +136,26 @@ phe_life_expectancy <- function(data, deaths, population, startage,
     stop("function life_expectancy requires at least 4 arguments: data, deaths, population, startage")
   }
 
-  names_data <- names(data)
+
+  # check field name collisions
+  check_field_collision(
+    "phe_life_expectancy"
+    , names(data)
+    , c(
+      deparse(substitute(deaths))
+      , deparse(substitute(population))
+      , deparse(substitute(startage))
+    )
+    , c(
+      "startage_2b_removed"
+      , "id_2b_removed", "ni_2b_removed", "ai_2b_removed", "M_2b_removed"
+      , "qi_2b_removed", "p_2b_removed", "l_2b_removed", "p1_2b_removed"
+      , "di_2b_removed", "Li_2b_removed", "Ti_2b_removed", "ei"
+      , "spi_2b_removed", "W_spi_2b_removed", "STi_2b_removed", "SeSE_2b_removed"
+      , "value", "lowercl", "uppercl", "confidence", "statistic", "method"
+    )
+  )
+
 
   # check for 20 age bands
   #if (length(age_contents) != 20) stop("this function requires 20 age bands to work (0, 1-4, 5-9, 10-14, ..., 85-89, 90+)")
@@ -332,21 +351,6 @@ phe_life_expectancy <- function(data, deaths, population, startage,
           unique()
 
 
-  # check field name collisions
-  validate_fields(
-    names_data
-    , c(as_name(deaths), as_name(population), as_name(startage))
-    , c(
-      "startage_2b_removed"
-      , "id_2b_removed", "ni_2b_removed", "ai_2b_removed", "M_2b_removed"
-      , "qi_2b_removed", "p_2b_removed", "l_2b_removed", "p1_2b_removed"
-      , "di_2b_removed", "Li_2b_removed", "Ti_2b_removed", "ei"
-      , "spi_2b_removed", "W_spi_2b_removed", "STi_2b_removed", "SeSE_2b_removed"
-      , "value", "lowercl", "uppercl", "confidence", "statistic", "method"
-    )
-  )
-
-
   # scale confidence level
   if (confidence >= 90) {
     confidence <- confidence/100
@@ -398,6 +402,7 @@ phe_life_expectancy <- function(data, deaths, population, startage,
                 lowercl = ei - z * SeSE_2b_removed,
                 uppercl = ei + z * SeSE_2b_removed) %>%
     select(-ends_with("_2b_removed")) %>%
+    select(-matches("value")) %>%
     rename(value = ei)
 
   data$value[data$value == Inf] <- NA
