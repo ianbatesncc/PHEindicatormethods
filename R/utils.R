@@ -467,7 +467,7 @@ SimulationFunc <- function(data,
 
 }
 
-#' ---------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
 #' validate_fields
 #'
 #' Collisions may occur with arguments and fixed function internal names.
@@ -480,57 +480,57 @@ SimulationFunc <- function(data,
 #'
 #' @details
 #' Three sets of names are of interest:
-#'
-#'  - names of fields already in the data frame (data_names)
-#'  - names of fields in the data frame to use in the function (arg_names)
-#'  - names of fields that will be mutated by the function (function_names)
+#' \itemize{
+#'   \item names of fields already in the data frame (data_names)
+#'   \item names of fields in the data frame to use in the function (arg_names)
+#'   \item names of fields that will be mutated by the function (function_names)
+#' }
 #'
 #'  Warnings are issued for these two cases:
 #'
-#'  - function_names overlap with data_names
-#'  - arg_names overlap with data_names
+#' \itemize{
+#'   \item function_names overlap with data_names
+#'   \item arg_names overlap with function_names
+#' }
 #'
 #' @return (bool) true if no overlap.  False if any overlap.
-#' ---------------------------------------------------------------------------
-validate_fields <- function(data_names, arg_names, function_names) {
+# ---------------------------------------------------------------------------
+check_field_collision <- function(
+  fname = "phe"
+  , data_names = NULL
+  , arg_names = NULL
+  , function_names = NULL
+  , quiet = FALSE
+) {
 
   retval <- 0L
   s_warning <- NULL
 
-  # check function names and data names overlap
+  if (quiet == TRUE) {
+    cat("INFO: data_names:", paste(data_names, collapse = ", "), "\n")
+    cat("INFO: arg_names:", paste(arg_names, collapse = ", "), "\n")
+    cat("INFO: function_names:", paste(function_names, collapse = ", "), "\n")
+  }
 
-  dup_function_names <- function_names %>% .[. %in% data_names]
+  msg = paste0(
+    fname
+    , ": Field name collision between data object and function implementation
+    This may result in overwritten/dropped fields or other unexpected behaviour.
+    Consider renaming or removing these fields to avoid the collision:
+      "
+  )
 
-  if (length(dup_function_names) > 0) {
-    s_warning <- paste(
-      "variable name collision with data: these fields may be overwritten or dropped (consider renaming them):"
-      , paste(dup_function_names, collapse = ", ")
+  dup_names <- intersect(function_names, data_names)
+
+  if (length(dup_names) > 0) {
+    warning(
+      paste0(msg, paste(dup_names, collapse = ", "))
+      , call. = FALSE
+      , immediate. = TRUE # to help understand any errors in parent function
     )
 
     retval <- retval + 1
   }
-
-  # check argument names and data names overlap
-
-  dup_arg_names <- arg_names %>% .[. %in% data_names]
-
-  if (length(dup_arg_names) > 0) {
-    s_warning <- paste(
-      s_warning
-      , paste(
-        "argument name collision with data: overlap with internal fields (consider renaming them):"
-        , paste(dup_arg_names, collapse = ", ")
-      )
-      , sep = "\n"
-    )
-
-    retval <- retval + 2
-  }
-
-  # warn if an overlap
-
-  if (retval > 0)
-    warning(s_warning)
 
   invisible(retval > 0)
 }
