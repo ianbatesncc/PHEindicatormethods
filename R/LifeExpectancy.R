@@ -136,7 +136,6 @@ phe_life_expectancy <- function(data, deaths, population, startage,
     stop("function life_expectancy requires at least 4 arguments: data, deaths, population, startage")
   }
 
-
   # check field name collisions
   check_field_collision(
     "phe_life_expectancy"
@@ -155,7 +154,6 @@ phe_life_expectancy <- function(data, deaths, population, startage,
       , "value", "lowercl", "uppercl", "confidence", "statistic", "method"
     )
   )
-
 
   # check for 20 age bands
   #if (length(age_contents) != 20) stop("this function requires 20 age bands to work (0, 1-4, 5-9, 10-14, ..., 85-89, 90+)")
@@ -349,7 +347,6 @@ phe_life_expectancy <- function(data, deaths, population, startage,
                                deaths_more_than_pops,
                                total_pops) %>%
           unique()
-
 
   # scale confidence level
   if (confidence >= 90) {

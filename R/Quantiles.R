@@ -71,7 +71,6 @@ phe_quantile <- function(data, values, highergeog = NULL, nquantiles=10L,
         stop("function phe_quantile requires at least 2 arguments: data and values")
     }
 
-
     # check field name collisions
     check_field_collision(
       "phe_quantile"
@@ -83,7 +82,6 @@ phe_quantile <- function(data, values, highergeog = NULL, nquantiles=10L,
         , "highergeog_column", "qinverted"
       )
     )
-
 
     # check invert is valid and append to data
     if (!(inverttype %in% c("logical","field"))) {

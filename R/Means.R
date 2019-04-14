@@ -53,7 +53,6 @@ phe_mean <- function(data, x, type = "full", confidence=0.95) {
       )
     )
 
-
     # apply quotes
     x <- enquo(x)
 
@@ -63,7 +62,6 @@ phe_mean <- function(data, x, type = "full", confidence=0.95) {
     } else if (!(type %in% c("value", "lower", "upper", "standard", "full"))) {
         stop("type must be one of value, lower, upper, standard or full")
     }
-
 
     # scale confidence level
     if (confidence >= 90) {

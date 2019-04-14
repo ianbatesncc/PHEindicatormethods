@@ -70,7 +70,6 @@ phe_dsr <- function(data, x, n, stdpop = esp2013, stdpoptype = "vector",
         stop("function phe_dsr requires at least 3 arguments: data, x, n")
     }
 
-
     # check field name collisions
     check_field_collision(
       "phe_dsr"
@@ -82,7 +81,6 @@ phe_dsr <- function(data, x, n, stdpop = esp2013, stdpoptype = "vector",
         , "value", "lowercl", "uppercl", "confidence", "statistic", "method"
       )
     )
-
 
     # check same number of rows per group
     if (n_distinct(select(ungroup(count(data)),n)) != 1) {

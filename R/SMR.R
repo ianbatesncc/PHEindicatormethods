@@ -68,7 +68,6 @@ phe_smr <- function(data, x, n, x_ref, n_ref, refpoptype = "vector",
         stop("function phe_smr requires at least 5 arguments: data, x, n, x_ref and n_ref")
     }
 
-
     # check field name collisions
     check_field_collision(
       "phe_quantile"
@@ -80,7 +79,6 @@ phe_smr <- function(data, x, n, x_ref, n_ref, refpoptype = "vector",
         , "value", "lowercl", "uppercl", "confidence", "statistic", "method"
       )
     )
-
 
     # check same number of rows per group
     if (n_distinct(select(ungroup(count(data)),n)) != 1) {

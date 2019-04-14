@@ -62,7 +62,6 @@ phe_proportion <- function(data, x, n, type="full", confidence=0.95, multiplier=
         stop("function phe_proportion requires at least 3 arguments: data, x, n")
     }
 
-
     # check field name collisions
     check_field_collision(
       "phe_proportion"
@@ -70,7 +69,6 @@ phe_proportion <- function(data, x, n, type="full", confidence=0.95, multiplier=
       , c(deparse(substitute(x)), deparse(substitute(n)))
       , c("value", "lowercl", "uppercl", "confidence", "statistic", "method")
     )
-
 
     # apply quotes
     x <- enquo(x)

@@ -57,7 +57,6 @@ phe_rate <- function(data,x, n, type = "full", confidence = 0.95, multiplier = 1
         stop("function phe_rate requires at least 3 arguments: data, x, n")
     }
 
-
     # check field name collisions
     check_field_collision(
       "phe_rate"
@@ -66,7 +65,6 @@ phe_rate <- function(data,x, n, type = "full", confidence = 0.95, multiplier = 1
       , c("value", "lowercl", "uppercl", "confidence", "statistic", "method")
       #, quiet = FALSE
     )
-
 
     # apply quotes
     x <- enquo(x)
