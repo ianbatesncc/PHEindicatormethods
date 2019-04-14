@@ -468,15 +468,17 @@ SimulationFunc <- function(data,
 }
 
 # ---------------------------------------------------------------------------
-#' validate_fields
+#' check_field_collision
 #'
 #' Collisions may occur with arguments and fixed function internal names.
 #' Report on these as warnings.
 #'
+#' @param fname (character) name of function to present in warning message
 #' @param data_names (character vector) vector of dataset names
 #' @param arg_names (character vector) vector of argument names
 #' @param function_names (character vector) vector of fields overwritten by
 #'   function
+#' @param quiet (bool) TRUE to show function arguments (for debugging).
 #'
 #' @details
 #' Three sets of names are of interest:
