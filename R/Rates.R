@@ -109,6 +109,22 @@ phe_rate <- function(data,x, n, type = "full", confidence = 0.95, multiplier = 1
 
 
     # generate output in required format
+
+if (FALSE) {
+    fields_to_drop <- switch(
+      type
+      , lower = c("value", "uppercl", "confidence", "statistic", "method")
+      , upper = c("value", "lowercl", "confidence", "statistic", "method")
+      , value = c("lowercl", "uppercl", "confidence", "statistic", "method")
+      , standard = c("confidence", "statistic", "method")
+      , NULL
+    )
+
+    if (!is.null(fields_to_drop))
+      phe_rate <- select(phe_rate, -one_of(fields_to_drop))
+
+} else {
+
     if (type == "lower") {
         phe_rate <- phe_rate %>%
             select(-value, -uppercl, -confidence, -statistic, -method)
@@ -122,7 +138,7 @@ phe_rate <- function(data,x, n, type = "full", confidence = 0.95, multiplier = 1
         phe_rate <- phe_rate %>%
             select( -confidence, -statistic, -method)
     }
-
+}
 
     return(phe_rate)
 }
