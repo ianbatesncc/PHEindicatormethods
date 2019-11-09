@@ -36,3 +36,19 @@ Two sets of names are of interest:
   \item function_names overlap with data_names
 }
 }
+\examples{
+library("PHEindicatormethods")
+library("dplyr")
+
+phe_rate(
+  data = data.frame(
+    area  = c("Area1", "Area2", "Area3")
+    , obs = c(65, 80, 30)
+    , pop = c(100, 100, 100)
+  ) \%>\% mutate(value = obs / pop)
+  , x = obs
+  , n = pop
+)
+
+
+}
